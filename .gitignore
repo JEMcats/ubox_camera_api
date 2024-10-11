@@ -1,2 +1,5 @@
 .DS_STORE
 api_docs/convert_headers.py
+user.json
+.env
+node_modules

@@ -5,12 +5,7 @@
         "path": "/api/v3/login",
         "authority": "portal.ubianet.com",
         "accept": "*/*",
-        "content-type": "application/json",
-        "accept-language": "en-US;q=1, es-US;q=0.9",
-        "content-length": "254",
-        "user-agent": "UBox/1.1.115 (iPhone; iOS 18.1; Scale/3.00)",
-        "accept-encoding": "gzip, deflate, br",
-        "x-ubiaapi-callcontext": "source=app&app=ubox&ver=1.1.115&os=ios&osver=18.1&uuid=&lang=en&region=US"
+        "content-type": "application/json"
     },
     "request": {
         "account": "Your Email",

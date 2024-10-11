@@ -2,7 +2,7 @@
   "name": "ubox-camera-api",
   "version": "1.0.0",
   "description": "An API for connecting to ubox cameras.",
-  "main": "index.js",
+  "main": "login.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,5 +18,12 @@
   "bugs": {
     "url": "https://github.com/JEMcats/ubox_camera_api/issues"
   },
-  "homepage": "https://github.com/JEMcats/ubox_camera_api#readme"
+  "homepage": "https://github.com/JEMcats/ubox_camera_api#readme",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "fs": "^0.0.1-security",
+    "js-sha1": "^0.7.0"
+  }
 }
