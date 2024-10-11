@@ -75,3 +75,25 @@ If there is another Linux distibution you would like added feel free to open a p
 
 ## Windows
 As of now we do not have an install guide for Windows, if you would you would like this added feel free to open a pull request.
+
+# Usage
+
+Navigate to the directory you have cloned from this repo. If you have not cloned the repository yet please follow the installation directions.
+
+## Login
+To login to the API create a .env file and write the following
+```
+email=your_email
+password=your_password
+```
+Once you have completed that run the following command
+```
+$ node login.js
+```
+This will generate a users.json file which will contain your token and other infromation.
+
+If the uBox Camera API ever stops working it is most likely that your login has expired, please run ``` login.js ``` again.
+
+## Hosting API
+
+Coming Soon!
