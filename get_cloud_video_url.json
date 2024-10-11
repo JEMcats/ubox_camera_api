@@ -1,0 +1,35 @@
+{
+    "headers": {
+        "method": "POST",
+        "scheme": "https",
+        "path": "/api/user/get_cloud_video_url",
+        "authority": "portal.ubianet.com",
+        "accept": "*/*",
+        "content-type": "application/json",
+        "accept-language": "en-US;q=1, es-US;q=0.9",
+        "content-length": "299",
+        "user-agent": "UBox/1.1.115 (iPhone; iOS 18.1; Scale/3.00)",
+        "x-ubia-auth-usertoken": "Token Found In User Authentication",
+        "accept-encoding": "gzip, deflate, br",
+        "x-ubiaapi-callcontext": "source=app&app=ubox&ver=1.1.115&os=ios&osver=18.1&uuid=Uvz8d6raSBQtCeNuW2E49y&lang=en&region=US"
+    },
+    "request": {
+        "uid": "Cloud List",
+        "bucket_name": "From Cloud List",
+        "cloud_provider": "From Cloud List",
+        "image": "From Cloud List",
+        "cloud_provider_int": "From Cloud List",
+        "endpoint": "From Cloud List",
+        "guid": "uuid in cloud list"
+    },
+    "response": {
+        "code": 0,
+        "data": {
+            "guid": "I am not sure where to find this",
+            "video_url": "Url To The Video",
+            "expired_second": 3600,
+            "cloud_provider": "1_amazon"
+        },
+        "msg": "success"
+    }
+}

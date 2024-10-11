@@ -1,0 +1,104 @@
+{
+    "headers": {
+        "method": "POST",
+        "scheme": "https",
+        "path": "/api/user/qry/device/device_services",
+        "authority": "portal.ubianet.com",
+        "accept": "*/*",
+        "content-type": "application/json",
+        "accept-language": "en-US;q=1, es-US;q=0.9",
+        "content-length": "78",
+        "user-agent": "UBox/1.1.115 (iPhone; iOS 18.1; Scale/3.00)",
+        "x-ubia-auth-usertoken": "Token Found In User Authentication",
+        "accept-encoding": "gzip, deflate, br",
+        "x-ubiaapi-callcontext": "source=app&app=ubox&ver=1.1.115&os=ios&osver=18.1&uuid=Uvz8d6raSBQtCeNuW2E49y&lang=en&region=US"
+    },
+    "request": {
+        "token": "Token Found In User Authentication",
+        "uids": [
+            "Uids for the cameras"
+        ]
+    },
+    "response": {
+        "code": 0,
+        "data": {
+            "is_reach_limit": false,
+            "items": [
+                {
+                    "uid": "Camera's Uid",
+                    "has_trial": false,
+                    "services": {
+                        "Alexa": {
+                            "auto_subscribe": [],
+                            "is_auto_subscribe": false,
+                            "note": "",
+                            "service_end": "",
+                            "service_ident": "",
+                            "service_package": "",
+                            "service_start": "",
+                            "status": 0,
+                            "exist": false,
+                            "is_lifetime_free_bird": false,
+                            "has_trial": false,
+                            "is_prepaid": false
+                        },
+                        "FaceID": {},
+                        "Ucloud": {
+                            "auto_subscribe": [
+                                {
+                                    "channel": "Method to pay with",
+                                    "product_id": "merchant.cn.ubia.ubox.30rwcloud360",
+                                    "service_ident": "Unknown",
+                                    "state": "Unknown",
+                                    "is_owner": false,
+                                    "cycle_month": 12,
+                                    "original_transaction_id": "Transaction id "
+                                }
+                            ],
+                            "is_auto_subscribe": true,
+                            "note": "",
+                            "service_end": "End of subscription",
+                            "service_ident": "Unknown",
+                            "service_package": "",
+                            "service_start": "Start of subscription",
+                            "status": 1,
+                            "exist": true,
+                            "is_lifetime_free_bird": false,
+                            "has_trial": false,
+                            "is_prepaid": false
+                        },
+                        "BirdDetection": {
+                            "auto_subscribe": [],
+                            "is_auto_subscribe": false,
+                            "note": "",
+                            "service_end": "",
+                            "service_ident": "",
+                            "service_package": "",
+                            "service_start": "",
+                            "status": 0,
+                            "exist": false,
+                            "is_lifetime_free_bird": false,
+                            "has_trial": false,
+                            "is_prepaid": false
+                        },
+                        "AnimalDetection": {
+                            "auto_subscribe": [],
+                            "is_auto_subscribe": false,
+                            "note": "",
+                            "service_end": "",
+                            "service_ident": "",
+                            "service_package": "",
+                            "service_start": "",
+                            "status": 0,
+                            "exist": false,
+                            "is_lifetime_free_bird": false,
+                            "has_trial": false,
+                            "is_prepaid": false
+                        }
+                    }
+                }
+            ]
+        },
+        "msg": "success"
+    }
+}

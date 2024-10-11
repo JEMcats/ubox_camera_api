@@ -1,0 +1,68 @@
+{
+    "headers": {
+        "method": "POST",
+        "scheme": "https",
+        "path": "/api/user/cloud_list",
+        "authority": "portal.ubianet.com",
+        "accept": "*/*",
+        "content-type": "application/json",
+        "accept-language": "en-US;q=1, es-US;q=0.9",
+        "content-length": "184",
+        "user-agent": "UBox/1.1.115 (iPhone; iOS 18.1; Scale/3.00)",
+        "x-ubia-auth-usertoken": "Token Found In User Authentication",
+        "accept-encoding": "gzip, deflate, br",
+        "x-ubiaapi-callcontext": "source=app&app=ubox&ver=1.1.115&os=ios&osver=18.1&uuid=Uvz8d6raSBQtCeNuW2E49y&lang=en&region=US"
+    },
+    "request": {
+        "summer_time": 1,
+        "time_revised": true,
+        "device_uid": [
+            "UID of the device"
+        ],
+        "token": "Token Found In User Authentication",
+        "time_diff": -18000,
+        "page": 1,
+        "timestamp": [
+            1728619200,
+            1728705664
+        ]
+    },
+    "response": {
+        "code": 0,
+        "data": {
+            "cloud": 1,
+            "count": {
+                "total": 1,
+                "pages": 1,
+                "page": 1,
+                "page_num": 20
+            },
+            "list": [
+                {
+                    "battery": 100,
+                    "bucket_name": "ubiabox-us",
+                    "cloud": 1,
+                    "cp": 1,
+                    "device_uid": "UID of the device",
+                    "end_point": "AWS endpoint",
+                    "event_time": 1728596236,
+                    "id": "Cloud Recording Identifyer",
+                    "img": "Path to recording image",
+                    "realname": "",
+                    "status": 2,
+                    "type": 1,
+                    "uuid": "recording guid",
+                    "zone_id": "1",
+                    "cloud_image_url": "URL to cloud image",
+                    "event_type_message": "",
+                    "ai_flag": 0,
+                    "ai_result": {},
+                    "user_tag": {}
+                }
+            ],
+            "service": true,
+            "time_diff": -18000
+        },
+        "msg": "success"
+    }
+}

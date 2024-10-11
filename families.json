@@ -1,0 +1,38 @@
+{
+    "headers": {
+        "method": "POST",
+        "scheme": "https",
+        "path": "/api/user/families",
+        "authority": "portal.ubianet.com",
+        "accept": "*/*",
+        "content-type": "application/json",
+        "accept-language": "en-US;q=1, es-US;q=0.9",
+        "content-length": "46",
+        "user-agent": "UBox/1.1.115 (iPhone; iOS 18.1; Scale/3.00)",
+        "x-ubia-auth-usertoken": "Token Found In User Authentication",
+        "accept-encoding": "gzip, deflate, br",
+        "x-ubiaapi-callcontext": "source=app&app=ubox&ver=1.1.115&os=ios&osver=18.1&uuid=Uvz8d6raSBQtCeNuW2E49y&lang=en&region=US"
+    },
+    "request": {
+        "token": "Token Found In User Authentication"
+    },
+    "response": {
+        "code": 0,
+        "data": [
+            {
+                "id": "Home Id",
+                "name": "My home",
+                "zone_id": 1,
+                "country_code": "E2",
+                "province": "New York",
+                "city": "",
+                "addr_1": "",
+                "addr_2": "",
+                "zip_code": "",
+                "geo_info": {},
+                "lbs_code": "LBS code"
+            }
+        ],
+        "msg": "success"
+    }
+}
