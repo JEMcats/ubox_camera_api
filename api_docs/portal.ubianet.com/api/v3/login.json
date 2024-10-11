@@ -1,0 +1,137 @@
+{
+    "headers": {
+        "method": "POST",
+        "scheme": "https",
+        "path": "/api/v3/login",
+        "authority": "portal.ubianet.com",
+        "accept": "*/*",
+        "content-type": "application/json",
+        "accept-language": "en-US;q=1, es-US;q=0.9",
+        "content-length": "254",
+        "user-agent": "UBox/1.1.115 (iPhone; iOS 18.1; Scale/3.00)",
+        "accept-encoding": "gzip, deflate, br",
+        "x-ubiaapi-callcontext": "source=app&app=ubox&ver=1.1.115&os=ios&osver=18.1&uuid=&lang=en&region=US"
+    },
+    "request": {
+        "account": "Your Email",
+        "password": "Your Password",
+        "lang": "en",
+        "app": "ubox",
+        "device_token": "A Random Identifyer",
+        "app_version": "1.1.115",
+        "brand": "iPhone15,2(18.1)",
+        "device_type": 2
+    },
+    "response": {
+        "code": 0,
+        "data": {
+            "account": "Your Email",
+            "app_id": 1,
+            "app_version": "1.1.115",
+            "device_token": "A Random Identifyer",
+            "device_type": 2,
+            "email_auth": 1,
+            "extra": {
+                "default_clarity": 0,
+                "display_name": "",
+                "live_slient": 1,
+                "notice_ring": 1,
+                "notice_shock": 1,
+                "play_back_slient": 0
+            },
+            "kuid": "a uid",
+            "lang": "en",
+            "lbs_code": "2D",
+            "login_node": "us",
+            "mobile_brand": "iPhone15,2(18.1)",
+            "notice_type": 2,
+            "union_id": "",
+            "uuid": "Your account uuid",
+            "wechat_bind": false,
+            "avatar_url": "A url to your account image",
+            "open_auth_binding": {},
+            "notices": [],
+            "Token": "A token for accessing endpoints in the API",
+            "Token_secret": "A token secret for accessing endpoints in the API",
+            "app_config": {
+                "ai": {
+                    "key": "no_more_use",
+                    "secret": "no_more_use"
+                },
+                "android_private_config": {
+                    "ucon": {
+                        "API Keys":"API Keys"
+                    },
+                    "ybox": {
+                        "API Keys":"API Keys"
+                    }
+                },
+                "aws_cloud": {
+                    "key": "The AWS key for ubox",
+                    "secret": "The AWS secret for ubox"
+                },
+                "bird_wiki_url": "https://{{lang}}wikipedia.org/wiki/{{bird_name}}",
+                "cloud": {
+                    "key": "The key for ubox",
+                    "secret": "The key for ubox"
+                },
+                "cnpay": [
+                    "wechat",
+                    "alipay"
+                ],
+                "facebook_binding_cmd": "sub",
+                "facebook_icamplus_profile_id": "A profile id for facebook",
+                "feature_show_tip_4g_charge": true,
+                "feature_show_tip_4g_charge_list": [
+                    "icamplus",
+                    "ubox",
+                    "soliomplus",
+                    "ybox",
+                    "xega"
+                ],
+                "firmware_ver_check": {
+                    "query_period_sec": 86400,
+                    "version_range": [
+                        "Some Values I Don't Understand"
+                    ]
+                },
+                "freq_pir_battery": {
+                    "info": 50,
+                    "warn": 30
+                },
+                "ios_private_config": {
+                    "ucon": {
+                        "API Keys":"API Keys"
+                    },
+                    "ybox": {
+                        "API Keys":"API Keys"
+                    }
+                },
+                "min_req_body_compress_bytes": 1500,
+                "mixed_purchase_limit_days": 3,
+                "not_appraisal_alert": false,
+                "setting_online_time_over_new_tip_sec": 300,
+                "tencent_cloud": {
+                    "API Keys":"API Keys"
+                }
+            },
+            "hw_token": "",
+            "regid_jg": "",
+            "regid_vivo": "",
+            "regid_xm": "",
+            "linked_users": [
+                {
+                    "nick_name": "Linked Username",
+                    "source": "ubia"
+                }
+            ],
+            "svcloc": {
+                "api_dn": "https://portal.ubianet.com",
+                "evt_dn": "https://log.ubianet.com",
+                "pay": "https://portal-us.ubianet.com/py_biz/us_channel_po.html",
+                "pay_sub": ""
+            }
+        },
+        "msg": "success"
+    }
+}

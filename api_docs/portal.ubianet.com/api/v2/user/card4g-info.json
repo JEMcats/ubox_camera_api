@@ -1,0 +1,46 @@
+{
+    "headers": {
+        "method": "POST",
+        "scheme": "https",
+        "path": "/api/v2/user/card4g-info",
+        "authority": "portal.ubianet.com",
+        "accept": "*/*",
+        "content-type": "application/json",
+        "accept-language": "en-US;q=1, es-US;q=0.9",
+        "content-length": "78",
+        "user-agent": "UBox/1.1.115 (iPhone; iOS 18.1; Scale/3.00)",
+        "x-ubia-auth-usertoken": "Token Found In User Authentication",
+        "accept-encoding": "gzip, deflate, br",
+        "x-ubiaapi-callcontext": "source=app&app=ubox&ver=1.1.115&os=ios&osver=18.1&uuid=Uvz8d6raSBQtCeNuW2E49y&lang=en&region=US"
+    },
+    "request": {
+        "token": "Token Found In User Authentication",
+        "icc_id": "Sim Card ICC Id Of Your Device"
+    },
+    "response": {
+        "code": 0,
+        "data": {
+            "icc_id": "Sim Card ICC Id",
+            "supplier": 6,
+            "operator": "international",
+            "data_total": 61439,
+            "data_used": 7511,
+            "data_left": 53928,
+            "activated_at": "2023-11-23",
+            "effective_at": "",
+            "expired_at": "2024-12-29",
+            "expired_at_utc": 1729339041,
+            "state": 0,
+            "batch": "A-230726",
+            "status": "ACTIVATED_NAME",
+            "flow_unlimit": false,
+            "card_suit_id": "16",
+            "only_free": false,
+            "card_pkg_flow_status": "normal",
+            "card_pkg_expire_status": "normal",
+            "is_live_control": false,
+            "live_keep_seconds": 0
+        },
+        "msg": "success"
+    }
+}
