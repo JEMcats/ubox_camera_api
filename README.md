@@ -7,12 +7,12 @@ We are NOT affiliated, associated, authorized, endorsed by, or in any way offici
 # Features
 | Features   | Status |
 | -------- | ------- |
-| List Of Devices | Avalible |
-| Sim Card Info | Avalible |
-| Cloud Recording List | Avalible |
-| Events Calendar | Avalible |
-| Get Cloud Video Url | Avalible |
-| Get Subscribed iOS Devices | Avalible |
+| List Of Devices | Available |
+| Sim Card Info | Available |
+| Cloud Recording List | Available |
+| Events Calendar | Available |
+| Get Cloud Video Url | Available |
+| Get Subscribed iOS Devices | Available |
 | uBox Camera Stream To RTSP | Upcoming |
 | Web Interface | Upcoming |
 # Install
