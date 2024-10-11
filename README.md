@@ -1,7 +1,7 @@
 # About
-uBox API is made to take your existing uBox cameras and get infromation from them.
+uBox Camera API is made to take your existing uBox cameras and get infromation from them.
 
-There is no official uBox API documentation so this is an unofficial API.
+There is no official uBox Camera API documentation so this is an unofficial API.
 
 We are NOT affiliated, associated, authorized, endorsed by, or in any way officially connected with UBIA TECHNOLOGIES CO. The official Ubia website can be found at [ubianet.com](https://www.ubianet.com).
 # Features
