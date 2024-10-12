@@ -9,7 +9,7 @@
         "x-ubia-auth-usertoken": "Token Found In User Authentication"
     },
     "request": {
-        "uid": "Cloud List",
+        "uid": "From Cloud List",
         "bucket_name": "From Cloud List",
         "cloud_provider": "From Cloud List",
         "image": "From Cloud List",

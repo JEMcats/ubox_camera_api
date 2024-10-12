@@ -47,48 +47,96 @@ async function makeUbiaRequest(body, url) {
 async function GETrequest(req, res) {
     switch (req.url) {
         case '/api/v2/user/device_list':
-            const ubia_response = await makeUbiaRequest({}, '/api/v2/user/device_list');
-            res.writeHead(ubia_response.code, { 'Content-Type': 'application/json' });
-            res.write(JSON.stringify(ubia_response.data)); // Ensure JSON data is stringified
+            const ubia_response_device_list = await makeUbiaRequest({}, req.url);
+            res.writeHead(ubia_response_device_list.code, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify(ubia_response_device_list.data)); // Ensure JSON data is stringified
             res.end();
-            break;
+        break;
         case '/api/user/families':
-            // Implement other API logic here
-            break;
+            const ubia_response_families = await makeUbiaRequest({"token":userdata.token}, req.url);
+            res.writeHead(ubia_response_families.code, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify(ubia_response_families.data)); // Ensure JSON data is stringified
+            res.end();
+        break;
         case '/api/user/get_subscription_ios_device':
-            // Implement other API logic here
-            break;
+            const ubia_response_get_subscription_ios_device = await makeUbiaRequest({}, req.url);
+            res.writeHead(ubia_response_get_subscription_ios_device.code, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify(ubia_response_get_subscription_ios_device.data)); // Ensure JSON data is stringified
+            res.end();
+        break;
         default:
             res.writeHead(404, { 'Content-Type': 'text/html' });
             res.write('Not Found');
             res.end();
-            break;
+        break;
     }
 }
 
-function POSTrequest(req, res) {
-    switch (req.url) {
-        case '/api/user/qry/device/device_services':
-            // Implement other API logic here
-            break;
-        case '/api/user/cloud_list':
-            // Implement other API logic here
-            break;
-        case '/api/user/event_calendar':
-            // Implement other API logic here
-            break;
-        case '/api/user/get_cloud_video_url':
-            // Implement other API logic here
-            break;
-        case '/api/v2/user/card4g-info':
-            // Implement other API logic here
-            break;
-        default:
-            res.writeHead(404, { 'Content-Type': 'text/html' });
-            res.write('Not Found');
+async function POSTrequest(req, res) {
+    let body = '';
+
+    // Accumulate data chunks in the body string
+    req.on('data', chunk => {
+        body += chunk.toString(); // Convert Buffer to string
+    });
+
+    // When the body is fully received, proceed
+    req.on('end', async () => {
+        // Try to parse the JSON body
+        try {
+            const parsedBody = JSON.parse(body);
+            parsedBody.token = userdata.token; // Attach the token
+
+            // Handle different POST routes
+            switch (req.url) {
+                case '/api/user/qry/device/device_services':
+                    const ubia_response_device_services = await makeUbiaRequest(parsedBody, req.url);
+                    res.writeHead(ubia_response_device_services.code, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify(ubia_response_device_services.data));
+                    res.end();
+                    break;
+
+                case '/api/user/cloud_list':
+                    const ubia_response_cloud_list = await makeUbiaRequest(parsedBody, req.url);
+                    res.writeHead(ubia_response_cloud_list.code, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify(ubia_response_cloud_list.data));
+                    res.end();
+                    break;
+
+                case '/api/user/event_calendar':
+                    const ubia_response_event_calendar = await makeUbiaRequest(parsedBody, req.url);
+                    res.writeHead(ubia_response_event_calendar.code, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify(ubia_response_event_calendar.data));
+                    res.end();
+                    break;
+
+                case '/api/user/get_cloud_video_url':
+                    const ubia_response_get_cloud_video_url = await makeUbiaRequest(parsedBody, req.url);
+                    res.writeHead(ubia_response_get_cloud_video_url.code, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify(ubia_response_get_cloud_video_url.data));
+                    res.end();
+                    break;
+
+                case '/api/v2/user/card4g-info':
+                    const ubia_response_card4g_info = await makeUbiaRequest(parsedBody, req.url);
+                    res.writeHead(ubia_response_card4g_info.code, { 'Content-Type': 'application/json' });
+                    res.write(JSON.stringify(ubia_response_card4g_info.data));
+                    res.end();
+                    break;
+
+                default:
+                    res.writeHead(404, { 'Content-Type': 'text/html' });
+                    res.write('Not Found');
+                    res.end();
+                    break;
+            }
+
+        } catch (error) {
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.write(JSON.stringify({ error: 'Invalid JSON' }));
             res.end();
-            break;
-    }
+        }
+    });
 }
 
 // Create a server object:
@@ -98,6 +146,7 @@ http.createServer(function (req, res) {
             GETrequest(req, res);
             break;
         case 'POST':
+            console.log(req.body)
             POSTrequest(req, res);
             break;
         default:
