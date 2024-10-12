@@ -1,10 +1,13 @@
 # About
+
 uBox Camera API is made to take your existing uBox cameras and get infromation from them.
 
 There is no official uBox Camera API documentation so this is an unofficial API.
 
 We are NOT affiliated, associated, authorized, endorsed by, or in any way officially connected with UBIA TECHNOLOGIES CO. The official Ubia website can be found at [ubianet.com](https://www.ubianet.com).
+
 # Features
+
 | Features   | Status |
 | -------- | ------- |
 | List Of Devices | Available |
@@ -18,7 +21,9 @@ We are NOT affiliated, associated, authorized, endorsed by, or in any way offici
 | Portal.ubianet.com API Documentation | Upcoming |
 
 # Install
+
 Choose the correct install for your system
+
 ## MacOS
 Install Homebrew
 ```
@@ -47,9 +52,11 @@ $ npm install
 The API is now setup and ready to be used.
 
 ## Linux
+
 Choose the install for your Linux Distribution
 
 ### Ubuntu
+
 Install NPM And Git
 ```
 $ sudo apt update
@@ -73,9 +80,11 @@ $ npm install
 The API is now setup and ready to be used.
 
 ### Other Distributions
+
 If there is another Linux distibution you would like added feel free to open a pull request.
 
 ## Windows
+
 As of now we do not have an install guide for Windows, if you would you would like this added feel free to open a pull request.
 
 # Usage
@@ -83,6 +92,7 @@ As of now we do not have an install guide for Windows, if you would you would li
 Navigate to the directory you have cloned from this repo. If you have not cloned the repository yet please follow the installation directions.
 
 ## Login
+
 To login to the API create a .env file and write the following
 ```
 email=your_email
@@ -126,3 +136,13 @@ The following endpoints can be accessed at ```localhost:8020```, if you change y
 | /api/user/event_calendar | POST |
 | /api/user/get_cloud_video_url | POST |
 | /api/user/qry/device/device_services | POST |
+
+# Contributing
+
+To start make a fork of the dev branch.
+
+In your fork make the changes you would like make.
+
+Fill out the infromation for the pull request.
+
+When you are ready open your pull request.
