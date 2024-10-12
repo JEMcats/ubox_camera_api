@@ -15,6 +15,8 @@ We are NOT affiliated, associated, authorized, endorsed by, or in any way offici
 | Get Subscribed iOS Devices | Available |
 | uBox Camera Stream To RTSP | Upcoming |
 | Web Interface | Upcoming |
+| Portal.ubianet.com API Documentation | Upcoming |
+
 # Install
 Choose the correct install for your system
 ## MacOS
@@ -96,4 +98,31 @@ If the uBox Camera API ever stops working it is most likely that your login has 
 
 ## Hosting API
 
-Coming Soon!
+Onece you have run ``` login.js ```, to use the ubox-camera-api run the following command
+```
+$ node server.js
+```
+if you get an error this is probably because you have not run ``` login.js ``` try running ``` login.js ``` again.
+
+Once your server has started you will see
+```
+Server running on port 8020
+```
+in your console.
+
+If you would like to change the port, modify the port varible in server.js
+
+## API usage
+
+The following endpoints can be accessed at ```localhost:8020```, if you change your port the API will be at ```localhost:YOUR_PORT```.
+
+| Endpoint   | Method |
+| -------- | ------- |
+| /api/v2/user/device_list | GET |
+| /api/user/families | GET|
+| /api/user/get_subscription_ios_device | GET |
+| /api/v2/user/card4g-info | POST |
+| /api/user/cloud_list | POST |
+| /api/user/event_calendar | POST |
+| /api/user/get_cloud_video_url | POST |
+| /api/user/qry/device/device_services | POST |

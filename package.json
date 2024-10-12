@@ -1,8 +1,8 @@
 {
   "name": "ubox-camera-api",
   "version": "1.0.0",
-  "description": "An API for connecting to ubox cameras.",
-  "main": "login.js",
+  "description": "An API for connecting to uBox cameras.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +24,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.4.5",
     "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
     "js-sha1": "^0.7.0"
   }
 }
