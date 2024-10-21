@@ -5,13 +5,16 @@ require('dotenv').config();
 var sha1 = require('js-sha1');
 // HMAC SHA-1 with Base64 Encoding
 function hmacSha1Base64(data) {
-
+if (process.env.debug_mode == false) {
     var hash = sha1.hmac.array('', data);
     var base_hash = Buffer.from(hash).toString('base64');
     // Replace the last character with a comma
     const modifiedSignature =  base_hash.replace(/.$/, ',');
     
     return modifiedSignature;
+} else {
+    return data
+}
 }
 // Function to generate a random string for the device token
 function generateRandomString(length) {
@@ -26,6 +29,8 @@ function generateRandomString(length) {
 // Load email and password from environment variables
 const email = process.env.email;
 const password = hmacSha1Base64(process.env.password);
+console.log('email',process.env.email)
+console.log('password',process.env.password)
 console.log(password)
 // Check if email and password are defined
 if (!email || !password) {
