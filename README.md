@@ -97,6 +97,7 @@ To login to the API create a .env file and write the following
 ```
 email=your_email
 password=your_password
+debug_mode=false
 ```
 Once you have completed that run the following command
 ```

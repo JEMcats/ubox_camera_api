@@ -23,7 +23,6 @@ If your PR requires multiple options, consider splitting it into multiple PRs to
 -->
 
 - [ ] Bugfix (non-breaking change that resolves an issue)
-- [ ] New Game
 - [ ] New Feature (which introduces functionality to an existing game or user interface)
 - [ ] Breaking Change (fix or feature that disrupts existing functionality)
 
