@@ -5,7 +5,7 @@ require('dotenv').config();
 var sha1 = require('js-sha1');
 // HMAC SHA-1 with Base64 Encoding
 function hmacSha1Base64(data) {
-if (process.env.debug_mode == false) {
+if (process.env.debug_mode == 'false') {
     var hash = sha1.hmac.array('', data);
     var base_hash = Buffer.from(hash).toString('base64');
     // Replace the last character with a comma
@@ -29,9 +29,11 @@ function generateRandomString(length) {
 // Load email and password from environment variables
 const email = process.env.email;
 const password = hmacSha1Base64(process.env.password);
-console.log('email',process.env.email)
-console.log('password',process.env.password)
-console.log(password)
+if (process.env.debug_mode == 'true') {
+    console.log('email',process.env.email)
+    console.log('password',process.env.password)
+    console.log(password)
+}
 // Check if email and password are defined
 if (!email || !password) {
     console.error("Error: Email or password not found in environment variables.");
