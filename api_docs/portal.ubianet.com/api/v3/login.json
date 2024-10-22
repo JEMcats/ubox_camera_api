@@ -9,7 +9,7 @@
     },
     "request": {
         "account": "Your Email",
-        "password": "Your Password",
+        "password": "Your Hashed Password",
         "lang": "en",
         "app": "ubox",
         "device_token": "A Random Identifyer",

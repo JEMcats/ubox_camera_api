@@ -1,8 +1,9 @@
 const http = require('http');
 const fs = require('fs');
 const axios = require('axios');
+require('dotenv').config();
 
-let port = 8020;
+let port = process.env.server_port;
 
 const userdata = JSON.parse(fs.readFileSync('user.json'));
 

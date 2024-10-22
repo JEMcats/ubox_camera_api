@@ -98,6 +98,7 @@ To login to the API create a .env file and write the following
 email=your_email
 password=your_password
 debug_mode=false
+server_port=8020
 ```
 Once you have completed that run the following command
 ```
@@ -121,7 +122,7 @@ Server running on port 8020
 ```
 in your console.
 
-If you would like to change the port, modify the port varible in server.js
+If you would like to change the port, modify the ```server_port``` varible in the env file
 
 ## API usage
 
@@ -138,6 +139,23 @@ The following endpoints can be accessed at ```localhost:8020```, if you change y
 | /api/user/get_cloud_video_url | POST |
 | /api/user/qry/device/device_services | POST |
 
+# Using The Password Hashing Tool
+
+To hash you password to for using the raw login endpoint [```portal.ubianet.com/api/v3/login```](https://github.com/JEMcats/ubox_camera_api/tree/main/api_docs/portal.ubianet.com/api/v3/login.json), you will need to hash your password with ```hash_password.js```.
+
+To start make sure that the ```password=YOUR_PASSWORD``` value is set in your ```.env``` file.
+
+Run this on the command line:
+```
+$ node hash_password.js
+```
+
+Wait for the console to say
+```
+Hashed Password: HASHEDPASSWORD,
+```
+
+Copy the hashed password and use it as your password in the POST Request JSON Body.
 # Contributing
 
 To start make a fork of the dev branch.
@@ -147,3 +165,14 @@ In your fork make the changes you would like make.
 Fill out the infromation for the pull request.
 
 When you are ready open your pull request.
+
+# Troubleshooting
+Here are some troubleshooting steps to take before making a Github issue.
+
+## ```login.js```
+Here is some troubleshooting for ```login.js```
+### Reset Your Password Without Special Charectors
+In the uBox app reset your password and try login in with ```login.js``` again.
+
+
+<!-- ## ```server.js``` -->
