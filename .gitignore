@@ -1,4 +1,5 @@
 .DS_STORE
+.DS_Store
 api_docs/convert_headers.py
 user.json
 .env
