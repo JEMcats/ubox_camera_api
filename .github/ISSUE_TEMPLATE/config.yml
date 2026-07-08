@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a bug with h264 streaming functionality
+    url: https://github.com/asyrk/ubox-web/issues/new
+    about: Please report issues with h264 streaming in the ubox-web repository. For streaming issues where the live.h264 still works, report issues to the ubox_camera_api repo.
