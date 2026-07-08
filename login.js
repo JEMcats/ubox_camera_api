@@ -57,8 +57,6 @@ const body = {
     "lang": "en",
     "app": "ubox",
     "device_token": generateRandomString(30), // Generate random 30-character string
-    "app_version": "1.1.115",
-    "brand": "iPhone15,2(18.1)",
     "device_type": 2
 };
 
