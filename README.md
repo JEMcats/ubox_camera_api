@@ -17,7 +17,7 @@ We are NOT affiliated, associated, authorized, endorsed by, or in any way offici
 | Get Cloud Video Url | Available |
 | Get Subscribed iOS Devices | Available |
 | uBox Camera Streaming | ***Experimental*** |
-| API Documentation | Avalible |
+| API Documentation | Available |
 | Web Interface | Upcoming |
 | Stream Recording | Upcoming |
 
