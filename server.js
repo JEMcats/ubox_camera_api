@@ -1,157 +1,214 @@
 const http = require('http');
 const fs = require('fs');
-const axios = require('axios');
+const path = require('path');
+const { GETrequest, POSTrequest, LOGINrequest } = require('./src/main/requests');
+const { logDebug, makeUbiaRequest, hoursAgo } = require('./src/main/helpers');
+const { buildMp4FromAnnexB } = require('./src/stream/h264-mp4');
+const { UBoxLiveStreamManager } = require('./src/stream/ubox-live-stream');
 require('dotenv').config();
 
-let port = process.env.server_port;
+global.liveStreams = new UBoxLiveStreamManager({
+    dumpDir: path.join(__dirname, 'stream-dumps'),
+    logDir: path.join(__dirname, 'stream-logs'),
+    enableSessionLogs: process.env.debug_mode !== 'false',
+    enableDumpFiles: process.env.debug_mode !== 'false',
+});
 
-const userdata = JSON.parse(fs.readFileSync('user.json'));
+require('dotenv').config();
 
-async function makeUbiaRequest(body, url) {
-    // Define the request headers
-    const headers = {
-        "method": "POST",
-        "scheme": "https",
-        "path": url,
-        "authority": "portal.ubianet.com",
-        "accept": "*/*",
-        "content-type": "application/json",
-        "x-ubia-auth-usertoken": userdata.token
-    };
+async function initializeLogin() {
+    let loginCredentials;
 
-    try {
-        const response = await axios.post(`https://portal.ubianet.com${url}`, body, { headers });
-        const data = response.data;
+    if (fs.existsSync('.storedLogin.json')) {
+        console.log('Saved login was found, attempting to load...')
+        loginCredentials = JSON.parse(fs.readFileSync('.storedLogin.json'));
 
-        if (data.code === 0) {
-            return { "code": response.status, "msg": data.msg, "data": data };
+        if (loginCredentials && loginCredentials.file_created_by_ubox_camera_api && loginCredentials.login_time && loginCredentials.token_valid_hours && loginCredentials.file_created_by_ubox_camera_api == 1) {
+            let hoursSinceLogin = hoursAgo(loginCredentials.login_time);
+            logDebug(`It has been ${hoursSinceLogin} hours since login, the token is valid for ${loginCredentials.token_valid_hours} hours.`);
+            if (hoursSinceLogin < loginCredentials.token_valid_hours) {
+                global.userdata = loginCredentials;
+                let login_validity = await checkLoginValidity();
+                if (login_validity == true) {
+                    console.log('Loaded saved login credentials.');
+                    if (process.env.debug_mode == 'true') {
+                        logDebug(JSON.stringify(loginCredentials));
+                    }
+                } else {
+                    console.log('Stored Login Is Not Working, attempting new login...')
+                    fs.unlinkSync('.storedLogin.json')
+                    global.userdata = {};
+                    loginCredentials = await LOGINrequest();
+                    global.userdata = loginCredentials;
+                    let login_validity = await checkLoginValidity();
+                    if (login_validity == true) {
+                        console.log('Login succeeded, credentials have been saved!')
+                        if (process.env.debug_mode == 'true') {
+                            logDebug(JSON.stringify(loginCredentials));
+                        }
+                    } else {
+                        console.error('Login failed!');
+                        process.exit(1);
+                    }
+                }
+            } else {
+                console.log('Stored Login Is Expired, attempting new login...')
+                fs.unlinkSync('.storedLogin.json')
+                loginCredentials = await LOGINrequest();
+                global.userdata = loginCredentials;
+                let login_validity = await checkLoginValidity();
+                if (login_validity == true) {
+                    console.log('Login succeeded, credentials have been saved!')
+                    if (process.env.debug_mode == 'true') {
+                        logDebug(JSON.stringify(loginCredentials));
+                    }
+                } else {
+                    console.error('Login failed!');
+                    process.exit(1);
+                }
+            }
         } else {
-            console.error("Request Failed", data.msg);  // Log error message from API
-            return { "code": response.status, "msg": data.msg };
+            console.log('Stored Login File Is Corrupt/Invalid, attempting new login...')
+            fs.unlinkSync('.storedLogin.json')
+            loginCredentials = await LOGINrequest();
+            global.userdata = loginCredentials;
+            let login_validity = await checkLoginValidity();
+            if (login_validity == true) {
+                console.log('Login succeeded, credentials have been saved!')
+                if (process.env.debug_mode == 'true') {
+                    logDebug(JSON.stringify(loginCredentials));
+                }
+            } else {
+                console.error('Login failed!');
+                process.exit(1);
+            }
         }
-    } catch (error) {
-        // Handle and log errors during the API request
-        if (error.response) {
-            console.error("Error response data:", error.response.data);
-            console.error("Status code:", error.response.status);
-            return { "code": error.response.status, "msg": error.response.data };
-        } else if (error.request) {
-            console.error("No response received:", error.request);
-            return { "code": 500, "msg": 'Unknown Error' };
+    } else {
+        console.log('No login is stored, attempting login...');
+        loginCredentials = await LOGINrequest();
+        global.userdata = loginCredentials;
+        let login_validity = await checkLoginValidity();
+        if (login_validity == true) {
+            console.log('Login succeeded, credentials have been saved!')
+            if (process.env.debug_mode == 'true') {
+                logDebug(JSON.stringify(loginCredentials));
+            }
         } else {
-            console.error("Request error:", error.message);
-            return { "code": 500, "msg": error.message };
+            console.error('Login failed!');
+            process.exit(1);
         }
     }
+
+    return loginCredentials;
 }
 
-async function GETrequest(req, res) {
-    switch (req.url) {
-        case '/api/v2/user/device_list':
-            const ubia_response_device_list = await makeUbiaRequest({}, req.url);
-            res.writeHead(ubia_response_device_list.code, { 'Content-Type': 'application/json' });
-            res.write(JSON.stringify(ubia_response_device_list.data)); // Ensure JSON data is stringified
-            res.end();
-        break;
-        case '/api/user/families':
-            const ubia_response_families = await makeUbiaRequest({"token":userdata.token}, req.url);
-            res.writeHead(ubia_response_families.code, { 'Content-Type': 'application/json' });
-            res.write(JSON.stringify(ubia_response_families.data)); // Ensure JSON data is stringified
-            res.end();
-        break;
-        case '/api/user/get_subscription_ios_device':
-            const ubia_response_get_subscription_ios_device = await makeUbiaRequest({}, req.url);
-            res.writeHead(ubia_response_get_subscription_ios_device.code, { 'Content-Type': 'application/json' });
-            res.write(JSON.stringify(ubia_response_get_subscription_ios_device.data)); // Ensure JSON data is stringified
-            res.end();
-        break;
-        default:
-            res.writeHead(404, { 'Content-Type': 'text/html' });
-            res.write('Not Found');
-            res.end();
-        break;
+async function checkLoginValidity() {
+    logDebug("Checking login validity...");
+    const ubia_response_device_list = await makeUbiaRequest({}, '/api/v2/user/device_list');
+    const isValidResponse = ubia_response_device_list && (ubia_response_device_list.code === 0 || ubia_response_device_list.code === '0');
+
+    if (isValidResponse) {
+        logDebug("Login is valid!");
+        return true;
     }
+
+    logDebug("Login is not valid!", ubia_response_device_list);
+    if (ubia_response_device_list && ubia_response_device_list.code !== undefined) {
+        logDebug("API response code", ubia_response_device_list.code);
+    }
+    return false;
 }
 
-async function POSTrequest(req, res) {
-    let body = '';
+async function startServer() {
+    await initializeLogin();
 
-    // Accumulate data chunks in the body string
-    req.on('data', chunk => {
-        body += chunk.toString(); // Convert Buffer to string
-    });
+    const port = process.env.server_port || 3000;
 
-    // When the body is fully received, proceed
-    req.on('end', async () => {
-        // Try to parse the JSON body
-        try {
-            const parsedBody = JSON.parse(body);
-            parsedBody.token = userdata.token; // Attach the token
+    // Create the server
+    http.createServer(async function (req, res) {
+        logDebug("Incoming request", { method: req.method, url: req.url });
 
-            // Handle different POST routes
-            switch (req.url) {
-                case '/api/user/qry/device/device_services':
-                    const ubia_response_device_services = await makeUbiaRequest(parsedBody, req.url);
-                    res.writeHead(ubia_response_device_services.code, { 'Content-Type': 'application/json' });
-                    res.write(JSON.stringify(ubia_response_device_services.data));
-                    res.end();
+        if (!global.userdata.token) {
+            res.writeHead(401, { 'Content-Type': 'text/html' });
+            res.write('Not Yet Logged In');
+            res.end();
+            return;
+        }
+
+        const parsedUrl = new URL(req.url, `http://${req.headers.host}`);
+
+        if (parsedUrl.pathname.includes('/api/stream/hls')) {
+            switch (req.method) {
+                case 'GET':
+                    GETrequest(req, res);
                     break;
 
-                case '/api/user/cloud_list':
-                    const ubia_response_cloud_list = await makeUbiaRequest(parsedBody, req.url);
-                    res.writeHead(ubia_response_cloud_list.code, { 'Content-Type': 'application/json' });
-                    res.write(JSON.stringify(ubia_response_cloud_list.data));
-                    res.end();
-                    break;
-
-                case '/api/user/event_calendar':
-                    const ubia_response_event_calendar = await makeUbiaRequest(parsedBody, req.url);
-                    res.writeHead(ubia_response_event_calendar.code, { 'Content-Type': 'application/json' });
-                    res.write(JSON.stringify(ubia_response_event_calendar.data));
-                    res.end();
-                    break;
-
-                case '/api/user/get_cloud_video_url':
-                    const ubia_response_get_cloud_video_url = await makeUbiaRequest(parsedBody, req.url);
-                    res.writeHead(ubia_response_get_cloud_video_url.code, { 'Content-Type': 'application/json' });
-                    res.write(JSON.stringify(ubia_response_get_cloud_video_url.data));
-                    res.end();
-                    break;
-
-                case '/api/v2/user/card4g-info':
-                    const ubia_response_card4g_info = await makeUbiaRequest(parsedBody, req.url);
-                    res.writeHead(ubia_response_card4g_info.code, { 'Content-Type': 'application/json' });
-                    res.write(JSON.stringify(ubia_response_card4g_info.data));
-                    res.end();
+                case 'POST':
+                    POSTrequest(req, res);
                     break;
 
                 default:
-                    res.writeHead(404, { 'Content-Type': 'text/html' });
-                    res.write('Not Found');
+                    logDebug("Invalid request method", req.method);
+                    res.writeHead(405, { 'Content-Type': 'text/html' });
+                    res.write('Method Not Allowed');
                     res.end();
                     break;
             }
+        } else {
+            let login_validity = await checkLoginValidity();
+            if (login_validity == true) {
+                switch (req.method) {
+                    case 'GET':
+                        GETrequest(req, res);
+                        break;
 
-        } catch (error) {
-            res.writeHead(400, { 'Content-Type': 'application/json' });
-            res.write(JSON.stringify({ error: 'Invalid JSON' }));
-            res.end();
+                    case 'POST':
+                        POSTrequest(req, res);
+                        break;
+
+                    default:
+                        logDebug("Invalid request method", req.method);
+                        res.writeHead(405, { 'Content-Type': 'text/html' });
+                        res.write('Method Not Allowed');
+                        res.end();
+                        break;
+                }
+            } else {
+                fs.unlinkSync('.storedLogin.json')
+                global.userdata = {};
+                loginCredentials = await LOGINrequest();
+                global.userdata = loginCredentials;
+                let login_validity = await checkLoginValidity();
+                if (login_validity == true) {
+                    console.log('Re-Login succeeded, credentials have been saved!')
+                    if (process.env.debug_mode == 'true') {
+                        logDebug(loginCredentials);
+                    }
+                    switch (req.method) {
+                        case 'GET':
+                            GETrequest(req, res);
+                            break;
+
+                        case 'POST':
+                            POSTrequest(req, res);
+                            break;
+
+                        default:
+                            logDebug("Invalid request method", req.method);
+                            res.writeHead(405, { 'Content-Type': 'text/html' });
+                            res.write('Method Not Allowed');
+                            res.end();
+                            break;
+                    }
+                } else {
+                    console.error('Login failed!');
+                    process.exit(1);
+                }
+            }
         }
+    }).listen(port, () => {
+        console.log(`Server running on port ${port}`);
     });
 }
 
-// Create a server object:
-http.createServer(function (req, res) {
-    switch (req.method) {
-        case 'GET':
-            GETrequest(req, res);
-            break;
-        case 'POST':
-            console.log(req.body)
-            POSTrequest(req, res);
-            break;
-        default:
-            break;
-    }
-}).listen(port); // The server object listens on port 8020
-console.log(`Server running on port ${port}`);
+startServer();

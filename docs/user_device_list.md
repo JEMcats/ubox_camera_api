@@ -1,0 +1,93 @@
+# /api/v2/user/device_list
+This endpoint returns a list of devices and more info about them.
+
+## Request
+Make a ```GET``` request to ```/api/v2/user/device_list```.
+
+## Response
+Formatted like:
+```json
+{
+    "noti": [],
+    "is_reach_limit": false,
+    "firmware_ver": [
+        {
+            "model_num": "879",
+            "version": "879.0.13.36"
+        },
+        {
+            "model_num": "30",
+            "version": "30.30.2.123"
+        }
+    ],
+    "items": [
+        {
+            "add_utc": 1697758855,
+            "device_uid": "Device Uid",
+            "device_name": "Device Name",
+            "is_owner": true,
+            "ps_name": "us",
+            "zone_id": 1,
+            "address_id": "2229460",
+            "alexa_status": 0,
+            "geo_info": {},
+            "ordering": {
+                "index": 1
+            }
+        }
+    ],
+    "infos": [
+        {
+            "dynamic_info": {
+                "device_uid": "Device Uid",
+                "online_state": "2",
+                "battery": 100,
+                "is_battery_charging": true,
+                "signal": 1,
+                "latest_active_utc": 1728657094
+            },
+            "card_info": {
+                "is_flag_import": true,
+                "is_ubia_card": true,
+                "is_lock": false,
+                "icc_id": "Sim Card ICC Id",
+                "icc_id_1": "Sim Card 1 ICC Id",
+                "icc_id_2": "",
+                "card_pkg_flow_status": "normal",
+                "card_pkg_expire_status": "normal",
+                "policy_suggest_sync_traffic": true
+            },
+            "device_uid": "Device Uid",
+            "device_name": "Device Name",
+            "add_utc": 1697758855,
+            "zone_id": 1,
+            "address_id": "Address Id",
+            "alexa_status": 0,
+            "alexa_id": "",
+            "is_ap_device": false,
+            "device_user": "admin",
+            "device_pwd": "device password",
+            "has_cloud_storage": true,
+            "is_cloud_storage_opened": true,
+            "dev_func": 1063461,
+            "is_dst_enabled": true,
+            "location": "",
+            "model_num": "879",
+            "is_notice_enabled": true,
+            "is_owner": true,
+            "permissions": "",
+            "product_id": "Product Identifyer",
+            "ps_name": "us",
+            "has_ticket_service": true,
+            "time_diff": -18000,
+            "cur_work_mode": 0,
+            "want_work_mode": 0,
+            "device_type": 0,
+            "is_panoramic_device": false,
+            "json_app_info": "{}",
+            "geo_info": {},
+            "capabilities": []
+        }
+    ]
+}
+```

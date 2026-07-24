@@ -16,9 +16,12 @@ We are NOT affiliated, associated, authorized, endorsed by, or in any way offici
 | Events Calendar | Available |
 | Get Cloud Video Url | Available |
 | Get Subscribed iOS Devices | Available |
-| uBox Camera Stream To RTSP | Upcoming |
+| uBox Camera Streaming | ***Experimental*** |
+| API Documentation | Avalible |
 | Web Interface | Upcoming |
-| Portal.ubianet.com API Documentation | Upcoming |
+| Stream Recording | Upcoming |
+
+***Note: Features marked as "Experimental" may experience issues. Please report any problems in Github issues.***
 
 # Install
 
@@ -91,53 +94,36 @@ As of now we do not have an install guide for Windows, if you would you would li
 
 Navigate to the directory you have cloned from this repo. If you have not cloned the repository yet please follow the installation directions.
 
-## Login
+## Setup
 
-To login to the API create a .env file and write the following
-```
-email=your_email
-password=your_password
-debug_mode=false
-server_port=8020
-```
-Once you have completed that run the following command
-```
-$ node login.js
-```
-This will generate a users.json file which will contain your token and other infromation.
+Start by copying/renaming ```.env.example``` to ```.env```. 
 
-If the uBox Camera API ever stops working it is most likely that your login has expired, please run ``` login.js ``` again.
+Then fill out your username and password in ```.env```. (You may also change ports as needed)
+
+Setup is complete 🎉.
 
 ## Hosting API
 
-Onece you have run ``` login.js ```, to use the ubox-camera-api run the following command
+Onece you have followed the Setup instructions above, run the following command:
 ```
-$ node server.js
+$ npm run main
 ```
-if you get an error this is probably because you have not run ``` login.js ``` try running ``` login.js ``` again.
 
-Once your server has started you will see
+Login should automatically run and load stored login if possible
+
+Once your server has started you will see:
 ```
 Server running on port 8020
 ```
 in your console.
 
-If you would like to change the port, modify the ```server_port``` varible in the env file
+If you would like to change the port, modify the ```server_port``` varible in the env file.
+
+***Note: RTSP uses a different port***
 
 ## API usage
 
-The following endpoints can be accessed at ```localhost:8020```, if you change your port the API will be at ```localhost:YOUR_PORT```.
-
-| Endpoint   | Method |
-| -------- | ------- |
-| /api/v2/user/device_list | GET |
-| /api/user/families | GET|
-| /api/user/get_subscription_ios_device | GET |
-| /api/v2/user/card4g-info | POST |
-| /api/user/cloud_list | POST |
-| /api/user/event_calendar | POST |
-| /api/user/get_cloud_video_url | POST |
-| /api/user/qry/device/device_services | POST |
+See the [/docs](https://github.com/JEMcats/ubox_camera_api/tree/main/docs/) directory in this repo!
 
 # Using The Password Hashing Tool
 
@@ -158,11 +144,13 @@ Hashed Password: HASHEDPASSWORD,
 Copy the hashed password and use it as your password in the POST Request JSON Body.
 # Contributing
 
+***Note: If you are planning on modifying files in ```src/stream```, I highly recommend making pull requests to [ubox-web](https://github.com/asyrk/ubox-web) instead of this repo! Changes will be pulled to this repo as needed.***
+
 To start make a fork of the dev branch.
 
 In your fork make the changes you would like make.
 
-Fill out the infromation for the pull request.
+Fill out the information for the pull request.
 
 When you are ready open your pull request.
 
@@ -170,9 +158,13 @@ When you are ready open your pull request.
 Here are some troubleshooting steps to take before making a Github issue.
 
 ## ```login.js```
-Here is some troubleshooting for ```login.js```
-### Reset Your Password Without Special Charectors
-In the uBox app reset your password and try login in with ```login.js``` again.
+Here are some troubleshooting steps for ```login.js```
 
+### Reset Your Password Without Special Characters
+In the uBox app reset your password, ensure you do not use special characters in the new password, and try login in with ```login.js``` again.
 
 <!-- ## ```server.js``` -->
+
+# Credits
+- [@JEMcats](https://github.com/jemcats) - Owner/Creator
+- [@asyrk](https://github.com/asyrk) - Camera streaming code, [ubox-web](https://github.com/asyrk/ubox-web)
